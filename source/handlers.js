@@ -20,7 +20,7 @@ function homeHandler(request, response) {
       .getTools(filter) // return tools object with name, likes, desc, user
       .then(tools => {
         response.writeHead(200, { "content-type": "text/html" });
-        const html = templates.home(tools);
+        const html = templates.home(tools, "user--hidden");
         response.end(html);
       })
       .catch(error => {
