@@ -82,7 +82,7 @@ function addToolHandler(request, response) {
 
 function signinPageHandler(request, response){
   response.writeHead(200, { "content-type": "text/html" });
-  const signinPage = templates.signinPage();
+  const signinPage = templates.signinPage('','signin');
   response.end(signinPage);
   response.on("error", error => {
     console.error(error);

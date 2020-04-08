@@ -2,7 +2,7 @@ const model = require("./model");
 const handlers = require("./handlers");
 
 function htmlSkeleton(redirect, content) {
-  return `
+  return  `
 
     <!DOCTYPE html>
     <html lang="en">
@@ -27,6 +27,32 @@ function htmlSkeleton(redirect, content) {
     </html>
     `;
 }
+function signinPage(extra, action) {
+  return htmlSkeleton(
+    `<a class="new-page-link" href='/'>Go back home</a>`,
+    // Content Parameter 
+    `<form action="${action}" method="POST" class="user-form">
+        <label class="user-form__label" for="username">Name</label>
+        <input class="username__input" id="username" name="username" required>
+
+        <label class="user-form__label" for="password">Description</label>
+        <input class="user-form__input" id="password" name="tool_description" required>
+       ${extra}
+       <button class="user-form__submit-btn" type="submit">${action}</button>
+     </form>`
+  )
+}
+
+function signupPage() {
+    signinPage(
+      `<label class='user-form__label' for="repeat-password">Repeat your Password</label>
+      <input class="user-form__input" id="repeat-password" name="repeat-password" required>
+        `,'signup'
+    ) 
+
+}
+
+
 
 function printTools(tools) {
   return tools.map(tool => {
@@ -116,4 +142,4 @@ function missing() {
   );
 }
 
-module.exports = { home, addPage, missing };
+module.exports = { home, addPage, missing, signinPage, signupPage };
