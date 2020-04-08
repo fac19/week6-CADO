@@ -19,9 +19,8 @@ function homeHandler(request, response) {
     model
       .getTools(filter) // return tools object with name, likes, desc, user
       .then(tools => {
-        templates.home(tools);
         response.writeHead(200, { "content-type": "text/html" });
-        const html = templates.home(tools);
+        const html = templates.home(tools, "user--hidden");
         response.end(html);
       })
       .catch(error => {
@@ -81,6 +80,68 @@ function addToolHandler(request, response) {
     })
 }
 
+function signinPageHandler(request, response){
+  response.writeHead(200, { "content-type": "text/html" });
+  const signinPage = templates.signinPage('','signin');
+  response.end(signinPage);
+  response.on("error", error => {
+    console.error(error);
+    missingHandler(request, response);
+  });
+}
+
+function signinPostHandler(request, response) {
+  let body = "";
+    request.on('data', chunk => (body += chunk));
+    request.on('end', () => {
+        const searchParams = new URLSearchParams(body);
+        const data = Object.fromEntries(searchParams);
+        console.log(data)
+        model
+         .validateUser(data)
+         .then(() => {
+             response.writeHead(302, { location: '/' })
+             response.end();
+         })
+         .catch(error => {
+            console.log(error);
+            response.writeHead(500, { "content-type": "text/html" });
+            response.end(`<h1>Something went wrong logging in</h1>`);
+         })
+    })
+}
+
+function signupPageHandler(request, response) {
+  response.writeHead(200, { "content-type": "text/html" });
+  const signupPage = templates.signupPage();
+  response.end(signupPage);
+  response.on("error", error => {
+    console.error(error);
+    missingHandler(request, response);
+  });
+}
+
+function signupPostHandler(request, response) {
+  let body = "";
+    request.on('data', chunk => (body += chunk));
+    request.on('end', () => {
+        const searchParams = new URLSearchParams(body);
+        const data = Object.fromEntries(searchParams);
+        console.log(data)
+        model
+         .createUser(data)
+         .then(() => {
+             response.writeHead(302, { location: '/' })
+             response.end();
+         })
+         .catch(error => {
+            console.log(error);
+            response.writeHead(500, { "content-type": "text/html" });
+            response.end(`<h1>You failed to sign up</h1>`);
+         })
+    })
+}
+
 // function loveHandler(request, response) {
 //   //UPDATE love of card in table
 // }
@@ -97,5 +158,9 @@ module.exports = {
   addPageHandler,
   addToolHandler,
 //   loveHandler,
-  missingHandler
+  missingHandler,
+  signinPageHandler,
+  signinPostHandler,
+  signupPostHandler,
+  signupPageHandler
 };

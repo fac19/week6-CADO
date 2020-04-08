@@ -1,8 +1,8 @@
-# cjhk
-Week 5 project
+# CODA
+Week 6
 
 ## Project description
-We have created the SRVVRS app to provide you with tech tools to aid in your survival during self-isolation. The user can view and add to the list of tools on the remote database.
+We have plagiarised the SRV|VRS app to allow you to add and delete tech tools to aid in your survival during self-isolation. Anyone can view these, but only *you* can add to and delete from the list of tools on the remote database.
 
 ## Set up instructions
 1. Clone this repo
@@ -37,6 +37,7 @@ PGPASSWORD=mypassword
 12. Run `$ npm test` to run tests
 
 ## Database Schema
+![schema](https://i.imgur.com/Q2KRNIl.png)
 
 ```
 CREATE TABLE user_input (
