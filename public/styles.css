@@ -178,6 +178,10 @@ label {
     margin-bottom: 1rem;
 }
 
+.user--hidden {
+  display: none;
+}
+
 
 @media only screen and (min-width: 800px) {
     .home-description {

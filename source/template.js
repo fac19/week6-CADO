@@ -2,7 +2,7 @@ const model = require("./model");
 const handlers = require("./handlers");
 
 function htmlSkeleton(redirect, content) {
-  return `
+  return  `
 
     <!DOCTYPE html>
     <html lang="en">
@@ -27,6 +27,31 @@ function htmlSkeleton(redirect, content) {
     </html>
     `;
 }
+function signinPage(extra, action) {
+  return htmlSkeleton(
+    `<a class="new-page-link" href='/'>Go back home</a>`,
+    // Content Parameter 
+    `<form action="${action}" method="POST" class="user-form">
+        <label class="user-form__label" for="username">Name<span aria-hidden=true>*</span></label>
+        <input class="username__input" id="username" name="username" required>
+
+        <label class="user-form__label" for="password">Password<span aria-hidden=true>*</span></label>
+        <input class="user-form__input" id="password" name="password" required>
+       ${extra}
+       <button class="user-form__submit-btn" type="submit">${action}</button>
+     </form>`
+  )
+}
+
+function signupPage() {
+    return signinPage(
+      `<label class='user-form__label' for="repeat-password">Repeat your Password <span aria-hidden="true">*</span></label>
+      <input class="user-form__input" id="repeat-password" name="repeat-password" required>
+        `,'signup'
+    ) 
+}
+
+
 
 function printTools(tools) {
   return tools.map(tool => {
@@ -43,11 +68,11 @@ function printTools(tools) {
   }).join("");
 }
 
-function home(tools) {
+function home(tools, hiddenCssClass) {
   return htmlSkeleton(
     // Redirect Parameter 
     `<h2 class="home-description">A collection of tools to help you survive social distancing!</h2>
-    <a class="new-page-link" href='/add'>Add a tool</a>`,
+    <a class="new-page-link ${hiddenCssClass}" href='/add'>Add a tool</a>`,
     // Content Parameter 
     `
     <p class="home-filter-description">Select a category to filter the results:</p>
@@ -116,4 +141,4 @@ function missing() {
   );
 }
 
-module.exports = { home, addPage, missing };
+module.exports = { home, addPage, missing, signinPage, signupPage };
