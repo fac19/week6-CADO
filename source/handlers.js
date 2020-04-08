@@ -19,7 +19,6 @@ function homeHandler(request, response) {
     model
       .getTools(filter) // return tools object with name, likes, desc, user
       .then(tools => {
-        templates.home(tools);
         response.writeHead(200, { "content-type": "text/html" });
         const html = templates.home(tools);
         response.end(html);
@@ -81,6 +80,20 @@ function addToolHandler(request, response) {
     })
 }
 
+function signinPageHandler(request, response){
+  
+}
+
+
+function signinPostHandler(request, response) {
+  
+}
+function signupPageHandler(request, response) {
+  
+}
+function signupPostHandler(request, response) {
+  
+}
 // function loveHandler(request, response) {
 //   //UPDATE love of card in table
 // }
@@ -97,5 +110,9 @@ module.exports = {
   addPageHandler,
   addToolHandler,
 //   loveHandler,
-  missingHandler
+  missingHandler,
+  signinPageHandler,
+  signinPostHandler,
+  signupPostHandler,
+  signupPageHandler
 };
