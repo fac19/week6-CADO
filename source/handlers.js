@@ -101,7 +101,7 @@ function signinPostHandler(request, response) {
         const searchParams = new URLSearchParams(body);
         const data = Object.fromEntries(searchParams);
         model.getPassword(data.username)
-        .then(hash => bcrypt.compare(data.password, hash))
+        .then(dbPassword => bcrypt.compare(data.password, dbPassword))
         .then(match => {
           if(!match){
             response.writeHead(500, { "content-type": "text/html" });
