@@ -1,16 +1,70 @@
-const db = require("./database/connection");
+const db = require('./database/connection')
 
-function getAllUsers (){
-    return db.query(`SELECT * FROM users`)
+function getAllUsers() {
+  return db.query(`SELECT * FROM users`).then(result => result.rows)
+}
+
+function getUser(username) {
+  return db
+    .query('SELECT * FROM users WHERE username LIKE ($1)', [`${username}`])
     .then(result => result.rows)
 }
 
+function getUserName(username) {
+  return getUser(username).then(user => user[0].username)
+}
+
+function getPassword(username) {
+  return getUser(username).then(user => user[0].password)
+}
+
+function createUser(data) {
+  return getUser(data.username)
+    .then(user => {
+      if (data.username === user[0].username) {
+        return 'user exists'
+      }
+    })
+    .catch(() => {
+      db.query('INSERT INTO users(username, password) VALUES($1, $2)', [
+        `${username}`,
+        `${password}`,
+      ])
+      return 'user created!'
+    })
+}
+
+function getAllPostsAndUsernames() {
+  return db
+    .query(
+      `
+    SELECT posts.*, users.username 
+    FROM posts
+    INNER JOIN users ON posts.user_id = users.id
+    `,
+    )
+    .then(result => result.rows)
+}
+
+module.exports = {
+  getAllUsers,
+  getUserName,
+  getPassword,
+  createUser,
+  getAllPostsAndUsernames,
+  getTools,
+}
+
+//  //   db.query('INSERT INTO users(username, password) VALUES($1, $2)', [
+//     `${username}`,
+//     `${password}`,
+//   ])
 
 // THE BELOW DOES NOT PROTECT AGAINST SQL INJECTION FOR POST REQUESTS
-function getTools(){
-    return db.query('SELECT * FROM posts').then(result => result.rows);
+function getTools() {
+  return db.query('SELECT * FROM posts').then(result => result.rows)
 }
-module.exports = { getTools, getAllUsers };
+// module.exports = { getTools, getAllUsers };
 
 // THE BELOW DOES PROTECT AGAINST SQL INJECTION (HOPEFULLY)
 // function getTools(filter){
@@ -32,4 +86,3 @@ module.exports = { getTools, getAllUsers };
 //     WHERE id = ${id}
 //     `);
 // }
-

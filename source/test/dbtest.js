@@ -1,35 +1,146 @@
-const test = require("tape");
-const db = require("../database/connection");
-const build = require("../database/build");
-const model = require("../model");
+const test = require('tape')
+const db = require('../database/connection')
+const build = require('../database/build')
+const model = require('../model')
 
 // test getTools()
 
-test("Test to see if this runs", t =>{
-  t.equal(1+1, 2, '1+1 should equal 2');
-  t.end();
+test('Test to see if this runs', t => {
+  t.equal(1 + 1, 2, '1+1 should equal 2')
+  t.end()
 })
 
-test("Check model is exporting getAllUsers function", t =>{
+test('Check model is exporting getAllUsers function', t => {
   build()
-  .then(() => {
-    t.equal('getAllUsers' in model, true);
-    t.end();
-  })
-  .catch(error => {
-    t.error(error);
-    t.end();
-  })  
+    .then(() => {
+      t.equal('getAllUsers' in model, true)
+      t.end()
+    })
+    .catch(error => {
+      t.error(error)
+      t.end()
+    })
 })
 
-// test("Test to get all users", t =>{
-//     build().then(() =>{
-//      t.equal(model.getAllUsers, 1, 'should return all our users') 
+test('Test to get first user', t => {
+  build()
+  model
+    .getAllUsers()
+    .then(entries => {
+      const firstEntry = entries[0]
+      t.equal(firstEntry.id, 1, 'id of first user is equal to 1')
+      t.equal(
+        firstEntry.username,
+        'jimmyface123',
+        `First username should be "jimmyface123" but is ${firstEntry.username}`,
+      )
+      t.end()
+    })
+    .catch(error => {
+      t.error(error)
+      t.end()
+    })
+})
+
+test('Test to get user by username', t => {
+  build()
+  let user = 'jimmyface123'
+  model
+    .getUserName(user)
+    .then(username => {
+      t.equal(username, user, 'db username should match the username input')
+      t.end()
+    })
+    .catch(error => {
+      t.error(error)
+      t.end()
+    })
+})
+
+test('Test to get user password by username', t => {
+  build()
+  let user = 'jimmyface123'
+  let pass = 'password'
+  model
+    .getPassword(user)
+    .then(password => {
+      t.equal(password, pass)
+      t.end()
+    })
+    .catch(error => {
+      t.error(error)
+      t.end()
+    })
+})
+
+test('Test if user doesnt exist create new user', t => {
+  build()
+  let user = 'jimmyface123'
+  let password = 'password'
+  model
+    .createUser(user, password)
+    .then(username => {
+      t.equal(
+        username,
+        'user exists',
+        'didnt create new user because user exists',
+      )
+      t.end()
+    })
+    .catch(error => {
+      t.error(error)
+      t.end()
+    })
+})
+
+test('Test if user doesnt exist create new user', t => {
+  build()
+  let user = 'ron4'
+  let password = 'hello123'
+  model
+    .createUser(user, password)
+    .then(username => {
+      console.log(username)
+      t.equal(username, 'user created!')
+      t.end()
+    })
+    .catch(error => {
+      t.error(error)
+      t.end()
+    })
+})
+
+test('Test to see if the join table with the username and post data returns', t => {
+  build()
+  model
+    .getAllPostsAndUsernames()
+    .then(allPosts => {
+      const post2 = allPosts[1]
+      t.equal(post2.tool_name, 'Amazon', 'Check tool_name')
+      t.equal(post2.username, 'newUser', 'Check username')
+      t.equal(
+        Object.entries(post2).length,
+        7,
+        'Check index!',
+        `Length of post2 should be 7 and is ${post2.length}`,
+      )
+      t.end()
+    })
+    .catch(error => {
+      t.error(error)
+      t.end()
+    })
+})
+
+// test('Test to get all users', t => {
+//   build()
+//     .then(() => {
+//       t.equal(model.getAllUsers(), 1, 'should return all our users')
 //     })
 //     .catch(error => {
-//       t.error(error);
-//       t.end();
-//     })  
+//       t.error(error)
+//       t.end()
+//     })
 // })
 
 // test("Can get all user entries with getTools() function", t => {
@@ -130,7 +241,6 @@ test("Check model is exporting getAllUsers function", t =>{
 //   })
 // })
 
-
 // // test addLove
 // test("Can add love to specific tool", t => {
 //   build().then(() => {
@@ -148,7 +258,6 @@ test("Check model is exporting getAllUsers function", t =>{
 //       }));
 //   });
 // });
-
 
 // test("Can increase tool love by one", t => {
 //   let currentLove;
