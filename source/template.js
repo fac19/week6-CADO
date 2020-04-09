@@ -36,7 +36,7 @@ function signinPage(extra, action) {
         <input class="username__input" id="username" name="username" required>
 
         <label class="user-form__label" for="password">Password<span aria-hidden=true>*</span></label>
-        <input class="user-form__input" id="password" name="password" required>
+        <input type="password" class="user-form__input" id="password" name="password" required>
        ${extra}
        <button class="user-form__submit-btn" type="submit">${action}</button>
      </form>`
@@ -46,7 +46,7 @@ function signinPage(extra, action) {
 function signupPage() {
     return signinPage(
       `<label class='user-form__label' for="repeat-password">Repeat your Password <span aria-hidden="true">*</span></label>
-      <input class="user-form__input" id="repeat-password" name="repeat-password" required>
+      <input type="password" class="user-form__input" id="repeat-password" name="repeat-password" required>
         `,'signup'
     ) 
 }
@@ -71,10 +71,12 @@ function printTools(tools) {
 function home(tools, hiddenCssClass) {
   return htmlSkeleton(
     // Redirect Parameter 
+    
     `<h2 class="home-description">A collection of tools to help you survive social distancing!</h2>
     <a class="new-page-link ${hiddenCssClass}" href='/add'>Add a tool</a>`,
     // Content Parameter 
-    `
+    `<a href="signin" class="sign-link">sign in</a><span>/</span><a href="signup" class=sign-link">sign up</a>
+    
     <p class="home-filter-description">Select a category to filter the results:</p>
     <div id="categoryIcon" class="cat">
       <a class="cat__work-icon"><i class="fas fa-briefcase"></i></a>

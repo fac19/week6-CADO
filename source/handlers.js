@@ -2,6 +2,8 @@ const fs = require("fs");
 const path = require("path");
 const model = require("./model");
 const templates = require("./template");
+const bcrypt = require("bcryptjs");
+
 const types = {
   html: "text/html",
   css: "text/css",
@@ -128,17 +130,19 @@ function signupPostHandler(request, response) {
         const searchParams = new URLSearchParams(body);
         const data = Object.fromEntries(searchParams);
         console.log(data)
-        model
-         .createUser(data)
-         .then(() => {
-             response.writeHead(302, { location: '/' })
-             response.end();
-         })
+        bcrypt
+          .genSalt(10)
+          .then(salt => bcrypt.hash(data.password, salt))
+          .then(hash => model.createUser({username: data.username, password: hash}))
+          .then(() => {
+              response.writeHead(302, { location: '/' })
+              response.end();
+          })
          .catch(error => {
             console.log(error);
             response.writeHead(500, { "content-type": "text/html" });
             response.end(`<h1>You failed to sign up</h1>`);
-         })
+          })
     })
 }
 

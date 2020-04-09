@@ -18,10 +18,10 @@ function getPassword(username) {
   return getUser(username).then(user => user[0].password)
 }
 
-function createUser(username, password) {
-  return getUser(username)
+function createUser(data) {
+  return getUser(data.username)
     .then(user => {
-      if (username === user[0].username) {
+      if (data.username === user[0].username) {
         return 'user exists'
       }
     })
@@ -52,6 +52,7 @@ module.exports = {
   getPassword,
   createUser,
   getAllPostsAndUsernames,
+  getTools,
 }
 
 //  //   db.query('INSERT INTO users(username, password) VALUES($1, $2)', [
@@ -60,9 +61,10 @@ module.exports = {
 //   ])
 
 // THE BELOW DOES NOT PROTECT AGAINST SQL INJECTION FOR POST REQUESTS
-// function getTools(filter){
-//     return db.query(`SELECT * FROM user_input WHERE category LIKE '${filter}'`).then(result => result.rows);;
-// }
+function getTools() {
+  return db.query('SELECT * FROM posts').then(result => result.rows)
+}
+// module.exports = { getTools, getAllUsers };
 
 // THE BELOW DOES PROTECT AGAINST SQL INJECTION (HOPEFULLY)
 // function getTools(filter){
