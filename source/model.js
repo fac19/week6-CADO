@@ -5,12 +5,12 @@ function getAllUsers (){
     .then(result => result.rows)
 }
 
-module.exports = { getAllUsers };
 
 // THE BELOW DOES NOT PROTECT AGAINST SQL INJECTION FOR POST REQUESTS
-// function getTools(filter){
-//     return db.query(`SELECT * FROM user_input WHERE category LIKE '${filter}'`).then(result => result.rows);;
-// }
+function getTools(){
+    return db.query('SELECT * FROM posts').then(result => result.rows);
+}
+module.exports = { getTools, getAllUsers };
 
 // THE BELOW DOES PROTECT AGAINST SQL INJECTION (HOPEFULLY)
 // function getTools(filter){

@@ -13,7 +13,7 @@
     "supertest": "^4.0.2",
     "tap-spec": "^5.0.0",
     "tape": "^4.13.2"
-    },
+  },
   "scripts": {
     "test": "PGDATABASE=week6cado_test tape 'source/test/*' | tap-spec",
     "start": "node source/server.js",
