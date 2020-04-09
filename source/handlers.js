@@ -3,6 +3,9 @@ const path = require("path");
 const model = require("./model");
 const templates = require("./template");
 const bcrypt = require("bcryptjs");
+const cookie = require("cookie");
+const jwt = require ("jsonwebtoken")
+let token;
 
 const types = {
   html: "text/html",
@@ -135,7 +138,12 @@ function signupPostHandler(request, response) {
           .then(salt => bcrypt.hash(data.password, salt))
           .then(hash => model.createUser({username: data.username, password: hash}))
           .then(() => {
-              response.writeHead(302, { location: '/' })
+              const payload = { username: data.username };
+              token = jwt.sign(payload,'survivethevirus')
+              response.writeHead(302, { 
+                location: '/', 
+                "Set-Cookie": `token=${token}; HttpOnly; Max-Age=9000`
+              })
               response.end();
           })
          .catch(error => {
