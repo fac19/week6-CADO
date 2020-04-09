@@ -11,7 +11,7 @@ CREATE TABLE users(
 CREATE TABLE posts(
   id SERIAL PRIMARY KEY,
   user_id INTEGER REFERENCES users(id),
-  category INTEGER NOT NULL,
+  category VARCHAR(255) NOT NULL,
   tool_name VARCHAR(255), 
   tool_description VARCHAR(255), 
   tool_link VARCHAR(255)

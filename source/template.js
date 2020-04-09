@@ -1,8 +1,8 @@
-const model = require("./model");
-const handlers = require("./handlers");
+const model = require('./model')
+const handlers = require('./handlers')
 
 function htmlSkeleton(redirect, content) {
-  return  `
+  return `
 
     <!DOCTYPE html>
     <html lang="en">
@@ -25,12 +25,12 @@ function htmlSkeleton(redirect, content) {
         <script src="public/main.js"></script>
     </body>
     </html>
-    `;
+    `
 }
 function signinPage(extra, action) {
   return htmlSkeleton(
     `<a class="new-page-link" href='/'>Go back home</a>`,
-    // Content Parameter 
+    // Content Parameter
     `<form action="${action}" method="POST" class="user-form">
         <label class="user-form__label" for="username">Name<span aria-hidden=true>*</span></label>
         <input class="username__input" id="username" name="username" required>
@@ -39,42 +39,42 @@ function signinPage(extra, action) {
         <input type="password" class="user-form__input" id="password" name="password" required>
        ${extra}
        <button class="user-form__submit-btn" type="submit">${action}</button>
-     </form>`
+     </form>`,
   )
 }
 
 function signupPage() {
-    return signinPage(
-      `<label class='user-form__label' for="repeat-password">Repeat your Password <span aria-hidden="true">*</span></label>
+  return signinPage(
+    `<label class='user-form__label' for="repeat-password">Repeat your Password <span aria-hidden="true">*</span></label>
       <input type="password" class="user-form__input" id="repeat-password" name="repeat-password" required>
-        `,'signup'
-    ) 
+        `,
+    'signup',
+  )
 }
 
-
-
 function printTools(tools) {
-  return tools.map(tool => {
-    return `
+  return tools
+    .map(tool => {
+      return `
       <article id="tool_${tool.id}" class="tool-card"> 
             <h2 class="tool-card__name">${tool.tool_name}</h2>
-            <p class="tool-card__love-icon"><a><i class="fas fa-heart"></i></a><span>${tool.love}</span></p>
-            <p class="tool-card__user">Added by: ${tool.added_by}</p>
+            <p class="tool-card__user">Added by: ${tool.username}</p>
             <p class="tool-card__desc">What is it: ${tool.tool_description}</p>
             <a class="tool-card__link" href="https://www.${tool.tool_link}">Link</a>
             <p class="tool-card__category">Category: ${tool.category}</p>
       </article>
-      `;
-  }).join("");
+      `
+    })
+    .join('')
 }
 
 function home(tools, links, button) {
   return htmlSkeleton(
-    // Redirect Parameter 
-    
+    // Redirect Parameter
+
     `<h2 class="home-description">A collection of tools to help you survive social distancing!</h2>
     ${button}`,
-    // Content Parameter 
+    // Content Parameter
     `${links}
     <p class="home-filter-description">Select a category to filter the results:</p>
     <div id="categoryIcon" class="cat">
@@ -84,14 +84,15 @@ function home(tools, links, button) {
       <a class="cat__health-icon"><i class="fas fa-heartbeat"></i></a>
       <a class="cat__news-icon"><i class="far fa-newspaper"></i></a>
     </div>
-    ${printTools(tools)}`);
+    ${printTools(tools)}`,
+  )
 }
 
 function addPage() {
   return htmlSkeleton(
-    // Redirect Parameter 
+    // Redirect Parameter
     `<a class="new-page-link" href='/'>Go back home</a>`,
-    // Content Parameter 
+    // Content Parameter
     `<form action="create-tool" method="POST">
         <fieldset>
           <legend>Category:</legend>
@@ -124,22 +125,18 @@ function addPage() {
        <input class="user-info" id="tool_link" name="tool_link" placeholder="google.com" required>
        </label>
        
-       <label class='user-info-label' for="added_by">Username
-       <input class="user-info" id="added_by" name="added_by" required>
-       </label>
-       
        <button class="post-tool-button" type="submit">Post tool</button>
-     </form>`
-  );
+     </form>`,
+  )
 }
 
 function missing() {
   return htmlSkeleton(
-    // Redirect Parameter 
+    // Redirect Parameter
     `<a href='/'><h2 class='error-subtitle'>Go back home!</h2></a>`,
-    // Content Parameter   
-    `<h1 class="error-title">Content Not Found</h1>`
-  );
+    // Content Parameter
+    `<h1 class="error-title">Content Not Found</h1>`,
+  )
 }
 
-module.exports = { home, addPage, missing, signinPage, signupPage };
+module.exports = { home, addPage, missing, signinPage, signupPage }
