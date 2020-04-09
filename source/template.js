@@ -33,13 +33,88 @@ function signinPage(extra, action) {
     // Content Parameter
     `<form action="${action}" method="POST" class="user-form">
         <label class="user-form__label" for="username">Name<span aria-hidden=true>*</span></label>
-        <input class="username__input" id="username" name="username" required>
+        <input 
+          class="username__input" 
+          id="username" 
+          name="username" 
+          required
+        />
 
         <label class="user-form__label" for="password">Password<span aria-hidden=true>*</span></label>
-        <input type="password" class="user-form__input" id="password" name="password" required>
-       ${extra}
-       <button class="user-form__submit-btn" type="submit">${action}</button>
-     </form>`,
+        <div id="passwordRequirements">
+          Passwords must contain at least one letter and one number, and contain at
+          least 8 characters.
+        </div>
+        <input 
+          type="password" 
+          class="user-form__input" 
+          id="password" 
+          name="password" 
+          minlength="8" 
+          aria-describedby="passwordRequirements" 
+          required
+        />
+        <div class=errorMessage></div>
+        ${extra}
+        <button class="user-form__submit-btn" type="submit">${action}</button>
+     </form>
+     <script>
+     const form = document.querySelector("form");
+     const messages = {
+       email: {
+         valueMissing: "Please enter an email.",
+         typeMismatch: "Please enter a valid email.",
+       },
+       password: {
+         valueMissing: "Please enter a password.",
+         patternMismatch: "Please include at least one letter and one number.",
+         tooShort: "Please enter at least 8 characters.",
+       },
+     };
+     const inputs = form.querySelectorAll("input");
+
+     inputs.forEach(input => {
+       input.setAttribute("aria-invalid",false);
+       input.addEventListener("invalid", handleInvalidInput)
+       input.addEventListener("input", clearValidity)
+     });
+
+     form.setAttribute("novalidate", "");
+     form.addEventListener("submit", event => {
+       const allInputsValid = event.target.checkValidity();
+       if (!allInputsValid){
+         event.preventDefault();
+       }
+     });
+
+     function handleInvalidInput(event){
+       const input = event.target;
+       const validity = input.validity;
+       const inputMessages = messages[input.id];
+       const errorContainer = input.nextElementSibling;
+
+       input.setAttribute("aria-invalid", true);
+       let message = '';
+
+       if (validity.valueMissing) {
+           message = inputMessages.valueMissing;
+       } else if (validity.typeMismatch){
+           message = inputMessages.typeMismatch;
+       } else if (validity.patternMismatch){
+           message = inputMessages.patternMismatch
+       } else if (validity.tooShort){
+           message = inputMessages.tooShort;
+       } errorContainer.textContent = message;
+     }
+
+     function clearValidity(event) {
+       const input = event.target;
+
+       input.setAttribute("aria-invalid", false);
+       input.nextElementSibling.textContent = "";
+     }
+     </script>
+     `
   )
 }
 
@@ -47,9 +122,9 @@ function signupPage() {
   return signinPage(
     `<label class='user-form__label' for="repeat-password">Repeat your Password <span aria-hidden="true">*</span></label>
       <input type="password" class="user-form__input" id="repeat-password" name="repeat-password" required>
-        `,
-    'signup',
-  )
+      <div class=errorMessage></div>
+        `,'signup'
+    ) 
 }
 
 function printTools(tools, currentuser) {

@@ -4,6 +4,10 @@
   padding: 0;
 }
 
+input[aria-invalid="true"] {
+  border-color: hsl(340, 70%, 50%);
+}
+
 :root {
   font-family: "Work Sans", sans-serif;
   --text-colour: hsl(201, 24%, 14%);
