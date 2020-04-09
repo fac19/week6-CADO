@@ -10,89 +10,10 @@ test('Test to see if this runs', t => {
   t.end()
 })
 
-// test('Check model is exporting getAllUsers function', t => {
-//   build()
-//     .then(() => {
-//       t.equal('getAllUsers' in model, true)
-//       t.end()
-//     })
-//     .catch(error => {
-//       t.error(error)
-//       t.end()
-//     })
-// })
-
-// test('Test to get first user', t => {
-//   build()
-//   model
-//     .getAllUsers()
-//     .then(entries => {
-//       const firstEntry = entries[0]
-//       t.equal(firstEntry.id, 1)
-//       t.end()
-//     })
-//     .catch(error => {
-//       t.error(error)
-//       t.end()
-//     })
-// })
-
-// test('Test to get user by username', t => {
-//   build()
-//   let user = 'jimmyface123'
-//   model
-//     .getUserName(user)
-//     .then(username => {
-//       t.equal(username, user)
-//       t.end()
-//     })
-//     .catch(error => {
-//       t.error(error)
-//       t.end()
-//     })
-// })
-
-// test('Test to get user password by username', t => {
-//   build()
-//   let user = 'jimmyface123'
-//   let pass = 'sherabbit49'
-//   model
-//     .getPassword(user)
-//     .then(password => {
-//       t.equal(password, pass)
-//       t.end()
-//     })
-//     .catch(error => {
-//       t.error(error)
-//       t.end()
-//     })
-// })
-
-// test('Test if user doesnt exist create new user', t => {
-//   build()
-//   let user = 'jimmyface123'
-//   let password = 'sherabbit49'
-//   model
-//     .createUser(user, password)
-//     .then(username => {
-//       t.equal(username, 'user exists')
-//       t.end()
-//     })
-//     .catch(error => {
-//       t.error(error)
-//       t.end()
-//     })
-// })
-
-test('Test if user doesnt exist create new user', t => {
+test('Check model is exporting getAllUsers function', t => {
   build()
-  let user = 'ron4'
-  let password = 'hello123'
-  model
-    .createUser(user, password)
-    .then(username => {
-      console.log(username)
-      t.equal(username, 'user created!')
+    .then(() => {
+      t.equal('getAllUsers' in model, true)
       t.end()
     })
     .catch(error => {
@@ -100,6 +21,16 @@ test('Test if user doesnt exist create new user', t => {
       t.end()
     })
 })
+
+// test("Test to get all users", t =>{
+//     build().then(() =>{
+//      t.equal(model.getAllUsers, 1, 'should 4return all our users')
+//     })
+//     .catch(error => {
+//       t.error(error);
+//       t.end();
+//     })
+// })
 
 // test("Can get all user entries with getTools() function", t => {
 //   build().then(() => {
