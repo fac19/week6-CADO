@@ -37,7 +37,29 @@ function createUser(data) {
 }
 
 function deletePost(postId) {
-  return db.query('DELETE FROM posts WHERE post.id = ($1)',[postId])
+  return db.query('DELETE FROM posts WHERE posts.id = ($1)', [postId])
+}
+
+function getAllPostsAndUsernames() {
+  return db
+    .query(
+      `
+    SELECT posts.*, users.username 
+    FROM posts
+    INNER JOIN users ON posts.user_id = users.id
+    `,
+    )
+    .then(result => result.rows)
+}
+
+module.exports = {
+  getAllUsers,
+  getUserName,
+  getPassword,
+  createUser,
+  getAllPostsAndUsernames,
+  getTools,
+  deletePost
 }
 
 // function createUser(data) {  
@@ -70,28 +92,6 @@ function deletePost(postId) {
 //       } 
 //     })
 // }
-
-function getAllPostsAndUsernames() {
-  return db
-    .query(
-      `
-    SELECT posts.*, users.username 
-    FROM posts
-    INNER JOIN users ON posts.user_id = users.id
-    `,
-    )
-    .then(result => result.rows)
-}
-
-module.exports = {
-  getAllUsers,
-  getUserName,
-  getPassword,
-  createUser,
-  getAllPostsAndUsernames,
-  getTools,
-  deletePost
-}
 
 //  //   db.query('INSERT INTO users(username, password) VALUES($1, $2)', [
 //     `${username}`,

@@ -85,7 +85,6 @@ test('Test if user exists that no user is created', t => {
         model
         .getAllUsers()
         .then(allUsers => {
-        console.log("allUsers", allUsers)
         t.equal(allUsers.length, 5, `allUsers object should have length of 5 and has length of ${allUsers.length}`)
         t.end()
     })      
@@ -96,31 +95,57 @@ test('Test if user exists that no user is created', t => {
       })
   })  
 })
+test('Test if row is deleted from table', t => {
+  build()
+  .then(() => {
+    model
+      .deletePost(1).then(() => {
+        model
+        .getAllPostsAndUsernames()
+        .then(allPost => {
+        t.equal(allPost.length, 3, `allPosts object should have length of 3 and has length of ${allPost.length}`)
+        t.end()
+    })      
+  })
+  .catch(error => {
+    t.error(error)
+    t.end()
+      })
+  })  
+})
+
+test('Test to see if the join table with the username and post data returns', t => {
+  build()
+  model
+    .getAllPostsAndUsernames()
+    .then(allPosts => {
+      const post2 = allPosts[1]
+      t.equal(post2.tool_name, 'Amazon', 'Check tool_name')
+      t.equal(post2.username, 'newUser', 'Check username')
+      t.equal(
+        Object.entries(post2).length,
+        7,
+        'Check index!',
+        `Length of post2 should be 7 and is ${post2.length}`,
+      )
+      t.end()
+    })
+    .catch(error => {
+      t.error(error)
+      t.end()
+    })
+})
 
 
 
 
-// test('Test to see if the join table with the username and post data returns', t => {
-//   build()
-//   model
-//     .getAllPostsAndUsernames()
-//     .then(allPosts => {
-//       const post2 = allPosts[1]
-//       t.equal(post2.tool_name, 'Amazon', 'Check tool_name')
-//       t.equal(post2.username, 'newUser', 'Check username')
-//       t.equal(
-//         Object.entries(post2).length,
-//         7,
-//         'Check index!',
-//         `Length of post2 should be 7 and is ${post2.length}`,
-//       )
-//       t.end()
-//     })
-//     .catch(error => {
-//       t.error(error)
-//       t.end()
-//     })
-// })
+
+
+
+
+
+
+
 
 
 
