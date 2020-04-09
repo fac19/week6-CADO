@@ -52,9 +52,18 @@ function signupPage() {
   )
 }
 
-function printTools(tools) {
+function printTools(tools, currentuser) {
   return tools
     .map(tool => {
+      let deleteButton = ''
+      console.log(currentuser, tool.username)
+      if (currentuser === tool.username) {
+        deleteButton = `<a class="post__remove-button"
+        aria-label="button to remove post"
+        href="/delete-post?id=${tool.id}">
+         delet ME!!!
+        </a>`
+      }
       return `
       <article id="tool_${tool.id}" class="tool-card"> 
             <h2 class="tool-card__name">${tool.tool_name}</h2>
@@ -62,13 +71,14 @@ function printTools(tools) {
             <p class="tool-card__desc">What is it: ${tool.tool_description}</p>
             <a class="tool-card__link" href="https://www.${tool.tool_link}">Link</a>
             <p class="tool-card__category">Category: ${tool.category}</p>
+            ${deleteButton}
       </article>
       `
     })
     .join('')
 }
 
-function home(tools, links, button) {
+function home(tools, links, button, username) {
   return htmlSkeleton(
     // Redirect Parameter
 
@@ -84,7 +94,7 @@ function home(tools, links, button) {
       <a class="cat__health-icon"><i class="fas fa-heartbeat"></i></a>
       <a class="cat__news-icon"><i class="far fa-newspaper"></i></a>
     </div>
-    ${printTools(tools)}`,
+    ${printTools(tools, username)}`,
   )
 }
 

@@ -20,7 +20,7 @@ function router(request, response) {
     if (!jwtCookie) {
       handlers.homeHandler(request, response, signInTemplate, '') //with sign in and up
     } else {
-      jwt.verify(jwtCookie, 'survivethevirus', (err, verify) => {
+      jwt.verify(jwtCookie, 'survivethevirus', (err, decoded) => {
         if (err) {
           response.writeHead(401, { 'Content-Type': 'text/plain' })
           handlers.missingHandler(request, response)
@@ -30,6 +30,7 @@ function router(request, response) {
             response,
             signOutTemplate,
             addPostButton,
+            decoded.username,
           ) //with sign out and add post
         }
       })
