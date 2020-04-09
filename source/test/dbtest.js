@@ -73,41 +73,45 @@ test('Test to get user password by username', t => {
     })
 })
 
-test('Test if user doesnt exist create new user', t => {
+test('Test if user exists that no user is created', t => {
   build()
-  let user = 'jimmyface123'
-  let password = 'password'
-  model
-    .createUser(user, password)
-    .then(username => {
-      t.equal(
-        username,
-        'user exists',
-        'didnt create new user because user exists',
-      )
-      t.end()
-    })
-    .catch(error => {
-      t.error(error)
-      t.end()
-    })
+  .then(() => {
+    const formData = {
+      username: 'akoface123',
+      password: 'password'
+    }
+    model
+      .createUser(formData).then(() => {
+        model
+        .getAllUsers()
+        .then(allUsers => {
+        t.equal(allUsers.length, 5, `allUsers object should have length of 5 and has length of ${allUsers.length}`)
+        t.end()
+    })      
+  })
+  .catch(error => {
+    t.error(error)
+    t.end()
+      })
+  })  
 })
-
-test('Test if user doesnt exist create new user', t => {
+test('Test if row is deleted from table', t => {
   build()
-  let user = 'ron4'
-  let password = 'hello123'
-  model
-    .createUser(user, password)
-    .then(username => {
-      console.log(username)
-      t.equal(username, 'user created!')
-      t.end()
-    })
-    .catch(error => {
-      t.error(error)
-      t.end()
-    })
+  .then(() => {
+    model
+      .deletePost(1).then(() => {
+        model
+        .getAllPostsAndUsernames()
+        .then(allPost => {
+        t.equal(allPost.length, 3, `allPosts object should have length of 3 and has length of ${allPost.length}`)
+        t.end()
+    })      
+  })
+  .catch(error => {
+    t.error(error)
+    t.end()
+      })
+  })  
 })
 
 test('Test to see if the join table with the username and post data returns', t => {
@@ -131,6 +135,34 @@ test('Test to see if the join table with the username and post data returns', t 
       t.end()
     })
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // test('Test to get all users', t => {
 //   build()
