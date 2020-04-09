@@ -73,6 +73,8 @@ function router(request, response) {
     })
     return response.end()
     //remove cookie and redirect to home.
+  } else if (url.includes('/delete-post')) {
+    handlers.deletePostHandler(request, response);
   } else {
     handlers.missingHandler(request, response)
   }

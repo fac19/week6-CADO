@@ -80,7 +80,8 @@ function getTools() {
     .query(
       `SELECT posts.*, users.username 
        FROM posts
-       INNER JOIN users ON posts.user_id = users.id`,
+       INNER JOIN users ON posts.user_id = users.id
+       ORDER BY posts.id DESC`,
     )
     .then(result => result.rows)
 }

@@ -15,6 +15,29 @@ const types = {
   ico: 'image/x-icon',
 }
 
+// Delete post handler
+function deletePostHandler (request, response) {
+  const deleteUrl = request.url
+  // We cannot use the full URL with URLSearchParams() 
+  const deleteUrlArray = deleteUrl.split('?');
+  const queryString = `?${deleteUrlArray[1]}`
+  const searchParams = new URLSearchParams(queryString)
+  const id = searchParams.get('id')
+  console.log("deletePostHandler -> id", id)
+
+  model.deletePost(id)
+  .then(() => {
+    response.writeHead(302, { location: '/' })  
+    response.end();
+  })
+  .catch(error => {
+    console.log(error)
+    response.writeHead(501, { 'content-type': 'text/html' })
+    response.end(`<h1>You failed to delete the post</h1>`)
+  })
+  
+}
+
 // MODEL => TEMPLATE
 function homeHandler(request, response, userLinks, addPostButton, username) {
   let filter = '%'
@@ -180,4 +203,5 @@ module.exports = {
   signinPostHandler,
   signupPostHandler,
   signupPageHandler,
+  deletePostHandler // NEW HANDLER
 }
