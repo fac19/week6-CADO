@@ -68,15 +68,14 @@ function printTools(tools) {
   }).join("");
 }
 
-function home(tools, hiddenCssClass) {
+function home(tools, links, button) {
   return htmlSkeleton(
     // Redirect Parameter 
     
     `<h2 class="home-description">A collection of tools to help you survive social distancing!</h2>
-    <a class="new-page-link ${hiddenCssClass}" href='/add'>Add a tool</a>`,
+    ${button}`,
     // Content Parameter 
-    `<a href="signin" class="sign-link">sign in</a><span>/</span><a href="signup" class=sign-link">sign up</a>
-    
+    `${links}
     <p class="home-filter-description">Select a category to filter the results:</p>
     <div id="categoryIcon" class="cat">
       <a class="cat__work-icon"><i class="fas fa-briefcase"></i></a>

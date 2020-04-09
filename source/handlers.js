@@ -3,6 +3,9 @@ const path = require("path");
 const model = require("./model");
 const templates = require("./template");
 const bcrypt = require("bcryptjs");
+const cookie = require("cookie");
+const jwt = require ("jsonwebtoken")
+let token;
 
 const types = {
   html: "text/html",
@@ -14,7 +17,7 @@ const types = {
 
 
 // MODEL => TEMPLATE
-function homeHandler(request, response) {
+function homeHandler(request, response, userLinks, addPostButton) {
   let filter = "%";
   request.on('data', chunk => (filter += chunk));
   request.on('end', () => {
@@ -22,7 +25,7 @@ function homeHandler(request, response) {
       .getTools(filter) // return tools object with name, likes, desc, user
       .then(tools => {
         response.writeHead(200, { "content-type": "text/html" });
-        const html = templates.home(tools, "user--hidden");
+        const html = templates.home(tools,userLinks, addPostButton);
         response.end(html);
       })
       .catch(error => {
@@ -31,6 +34,9 @@ function homeHandler(request, response) {
       });
   })
   //serves home page with SELECT query on database getTools() / filterTools()
+
+  //        const html = templates.home(tools,`<a href="signin" class="sign-link">sign in</a> <a href="signup" class="sign-link">sign up</a>`,``);
+
 }
 
 function publicHandler(request, response) {
@@ -135,7 +141,12 @@ function signupPostHandler(request, response) {
           .then(salt => bcrypt.hash(data.password, salt))
           .then(hash => model.createUser({username: data.username, password: hash}))
           .then(() => {
-              response.writeHead(302, { location: '/' })
+              const payload = { username: data.username };
+              token = jwt.sign(payload,'survivethevirus')
+              response.writeHead(302, { 
+                location: '/', 
+                "Set-Cookie": `token=${token}; HttpOnly; Max-Age=9000`
+              })
               response.end();
           })
          .catch(error => {

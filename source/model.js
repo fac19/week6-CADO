@@ -27,8 +27,8 @@ function createUser(data) {
     })
     .catch(() => {
       db.query('INSERT INTO users(username, password) VALUES($1, $2)', [
-        `${username}`,
-        `${password}`,
+        `${data.username}`,
+        `${data.password}`,
       ])
       return 'user created!'
     })
