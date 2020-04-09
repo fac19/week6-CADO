@@ -2,9 +2,13 @@
 Week 6
 
 ## Project description
-We have plagiarised the SRV|VRS app to allow you to add and delete tech tools to aid in your survival during self-isolation. Anyone can view these, but only *you* can add to and delete from the list of tools on the remote database.
+We have plagiarised the SRV|VRS app to allow you to add and delete tech tools to aid in your survival during self-isolation. Anyone can view these, but only *you* can add to and delete from the list of tools on the remote database (when you're signed in).
 
 ## Set up instructions
+Visit the [deployed version of the website](https://week6-cado.herokuapp.com/) on Heroku.
+
+Or set up your own local production database:
+
 1. Clone this repo
 2. Run `$ npm install` on your terminal
 3. Run `npm run dev` to check server runs
