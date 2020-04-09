@@ -75,6 +75,7 @@ function createTool(userEntry) {
     })
 }
 
+// AMENDED - added ORDER BY
 function getTools() {
   return db
     .query(
@@ -82,6 +83,19 @@ function getTools() {
        FROM posts
        INNER JOIN users ON posts.user_id = users.id
        ORDER BY posts.id DESC`,
+    )
+    .then(result => result.rows)
+}
+
+// NEW QUERY TO EXPLAIN
+function getToolsForUser(userId) {
+  return db
+    .query(
+      `SELECT posts.*, users.username 
+       FROM posts
+       INNER JOIN users ON posts.user_id = users.id
+       WHERE posts.user_id = ($1)
+       ORDER BY posts.id DESC`, [userId]
     )
     .then(result => result.rows)
 }
@@ -97,6 +111,7 @@ module.exports = {
   getTools,
   deletePost,
   createTool,
+  getToolsForUser // NEW QUERY
 }
 
 // function createUser(data) {

@@ -3,6 +3,7 @@ const db = require('../database/connection')
 const build = require('../database/build')
 const model = require('../model')
 
+
 // test getTools()
 
 test('Test to see if this runs', t => {
@@ -114,19 +115,22 @@ test('Test if row is deleted from table', t => {
   })  
 })
 
-test('Test to see if the join table with the username and post data returns', t => {
+// AMENDED TEST - for newly reversed getToolsForUser query 
+test('Test to see if the reversed join table with the username and post data returns', t => {
   build()
   model
-    .getAllPostsAndUsernames()
-    .then(allPosts => {
-      const post2 = allPosts[1]
-      t.equal(post2.tool_name, 'Amazon', 'Check tool_name')
-      t.equal(post2.username, 'newUser', 'Check username')
+    .getTools()
+    .then(allToolsAndUsers => {
+      // console.log("allToolsAndUsers", allToolsAndUsers)
+      const firstPost = allToolsAndUsers[0]
+      t.equal(allToolsAndUsers.length, 4, `allToolsAndUsers object length should be 4 and is ${allToolsAndUsers.length}` )
+      t.equal(firstPost.id, 4, `The first post should have an id of 4 and it is ${firstPost.id}`)
+      t.equal(firstPost.tool_name, 'Toilet Roll Checker', `The first post tool_name should be "Toilet Roll Checker" and it is "${firstPost.tool_name}"`)
+      t.equal(firstPost.username, 'tomkitten', `The first post username should be "tomkitten" and it is "${firstPost.username}"`)
       t.equal(
-        Object.entries(post2).length,
+        Object.entries(firstPost).length,
         7,
-        'Check index!',
-        `Length of post2 should be 7 and is ${post2.length}`,
+        `Length of firstPost object should be 7 and is ${firstPost.length}`
       )
       t.end()
     })
@@ -137,7 +141,32 @@ test('Test to see if the join table with the username and post data returns', t 
 })
 
 
-
+// ADDED TEST TO EXPLAIN 
+test('Test to see if the user specifc reversed join table with the username and post data returns', t => {
+  const userId = 3;
+  build()
+  model
+    .getToolsForUser(userId)
+    .then(allToolsAndUsers => {
+      // console.log("allToolsAndUsers", allToolsAndUsers)
+      const firstPost = allToolsAndUsers[0]
+      t.equal(allToolsAndUsers.length, 1, `allToolsAndUsers object length should be 1 and is ${allToolsAndUsers.length}` )
+      t.equal(firstPost.id, 3, `The first post should have an id of 3 and it is ${firstPost.id}`)
+      t.equal(firstPost.tool_name, 'Pact Coffee', `The first post tool_name should be "Pact Coffee" and it is "${firstPost.tool_name}"`)
+      t.equal(firstPost.username, 'assasinscreed', `The first post username should be "assasinscreed" and it is "${firstPost.username}"`)
+      t.equal(
+        Object.entries(firstPost).length,
+        7,
+        `Length of firstPost object should be 7 and is ${firstPost.length}`
+      )
+      t.end()
+      db.end();
+    })
+    .catch(error => {
+      t.error(error)
+      t.end()
+    })
+})
 
 
 
