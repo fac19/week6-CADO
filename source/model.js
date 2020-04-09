@@ -6,8 +6,12 @@ function getAllUsers() {
 
 function getUser(username) {
   return db
-    .query('SELECT * FROM users WHERE username LIKE ($1)', [`${username}`])
-    .then(result => result.rows)
+    .query('SELECT * FROM users WHERE username = ($1)', [`${username}`])
+    .then(result => result.rows) // Does this reject if no user exists
+    .catch(error => {
+      console.log('I AM THE GET USER ERROR')
+      return error
+    })
 }
 
 function getUserName(username) {
@@ -18,20 +22,22 @@ function getPassword(username) {
   return getUser(username).then(user => user[0].password)
 }
 
-function createUser(data) {
+function createUser(data) {  
   return getUser(data.username)
-    .then(user => {
-      if (data.username === user[0].username) {
-        return 'user exists'
-      }
-    })
-    .catch(() => {
-      db.query('INSERT INTO users(username, password) VALUES($1, $2)', [
-        `${data.username}`,
-        `${data.password}`,
-      ])
-      return 'user created!'
-    })
+    .then(userArray => {
+      if(userArray.username !== data.username) {
+        return db.query('INSERT INTO users(username, password) VALUES($1, $2)', [        
+          `${data.username}`,
+          `${data.password}`
+        ])
+      } else {
+        return 'I am matching'
+      }      
+    }) 
+}
+
+function deletePost(postId) {
+  return db.query('DELETE FROM posts WHERE posts.id = ($1)', [postId])
 }
 
 function getAllPostsAndUsernames() {
@@ -53,7 +59,39 @@ module.exports = {
   createUser,
   getAllPostsAndUsernames,
   getTools,
+  deletePost
 }
+
+// function createUser(data) {  
+//   return getUser(data.username)
+//     .then(user => {
+//       console.log("createUser -> user", user)
+//       if (data.username === user[0].username) {       
+//         return 'user exists'
+//       } else {
+//         return 'I am in the else'
+//       }
+//     })
+//     .catch(() => {
+//       db.query('INSERT INTO users(username, password) VALUES($1, $2)', [        
+//         `${data.username}`,
+//         `${data.password}`
+//       ]).then(() => 'user created!')
+//       return "We are in the catch"
+//     })
+// }
+
+// function createUser(data) {  
+//   return getUser(data.username)
+//     .then(user => {
+//       if (data.username === user[0].username) {       
+//         return 'user exists'
+//       } else {
+//         const values = [data.username, data.password];
+//         return db.query('INSERT INTO users(username, password) VALUES($1, $2)', values)
+//       } 
+//     })
+// }
 
 //  //   db.query('INSERT INTO users(username, password) VALUES($1, $2)', [
 //     `${username}`,
