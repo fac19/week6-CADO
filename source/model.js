@@ -46,6 +46,8 @@ function getAllPostsAndUsernames() {
     .then(result => result.rows)
 }
 
+// function validateUser
+
 module.exports = {
   getAllUsers,
   getUserName,

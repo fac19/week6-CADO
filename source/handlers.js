@@ -22,7 +22,7 @@ function homeHandler(request, response, userLinks, addPostButton) {
   request.on('data', chunk => (filter += chunk));
   request.on('end', () => {
     model
-      .getTools(filter) // return tools object with name, likes, desc, user
+      .getTools(filter) 
       .then(tools => {
         response.writeHead(200, { "content-type": "text/html" });
         const html = templates.home(tools,userLinks, addPostButton);
@@ -33,10 +33,6 @@ function homeHandler(request, response, userLinks, addPostButton) {
         missingHandler(request, response);
       });
   })
-  //serves home page with SELECT query on database getTools() / filterTools()
-
-  //        const html = templates.home(tools,`<a href="signin" class="sign-link">sign in</a> <a href="signup" class="sign-link">sign up</a>`,``);
-
 }
 
 function publicHandler(request, response) {
@@ -104,18 +100,22 @@ function signinPostHandler(request, response) {
     request.on('end', () => {
         const searchParams = new URLSearchParams(body);
         const data = Object.fromEntries(searchParams);
-        console.log(data)
-        model
-         .validateUser(data)
-         .then(() => {
-             response.writeHead(302, { location: '/' })
-             response.end();
-         })
-         .catch(error => {
-            console.log(error);
+        model.getPassword(data.username)
+        .then(hash => bcrypt.compare(data.password, hash))
+        .then(match => {
+          if(!match){
             response.writeHead(500, { "content-type": "text/html" });
             response.end(`<h1>Something went wrong logging in</h1>`);
-         })
+          } else {
+            const payload = { username: data.username };
+            token = jwt.sign(payload,'survivethevirus')
+            response.writeHead(302, { 
+              location: '/', 
+              "Set-Cookie": `token=${token}; HttpOnly; Max-Age=9000`
+            })
+            response.end();
+          }
+        })
     })
 }
 
