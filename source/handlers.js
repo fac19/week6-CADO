@@ -16,7 +16,7 @@ const types = {
 }
 
 // MODEL => TEMPLATE
-function homeHandler(request, response, userLinks, addPostButton) {
+function homeHandler(request, response, userLinks, addPostButton, username) {
   let filter = '%'
   request.on('data', chunk => (filter += chunk))
   request.on('end', () => {
@@ -24,7 +24,7 @@ function homeHandler(request, response, userLinks, addPostButton) {
       .getTools(filter)
       .then(tools => {
         response.writeHead(200, { 'content-type': 'text/html' })
-        const html = templates.home(tools, userLinks, addPostButton)
+        const html = templates.home(tools, userLinks, addPostButton, username)
         response.end(html)
       })
       .catch(error => {
