@@ -25,14 +25,15 @@ function getPassword(username) {
 function createUser(data) {  
   return getUser(data.username)
     .then(userArray => {
-      if(userArray.username !== data.username) {
+      if(userArray.length == 0) {
         return db.query('INSERT INTO users(username, password) VALUES($1, $2)', [        
           `${data.username}`,
           `${data.password}`
         ])
-      } else {
-        return 'I am matching'
-      }      
+      }
+      // else {
+      //   return
+      // }
     }) 
 }
 
@@ -51,6 +52,8 @@ function getAllPostsAndUsernames() {
     )
     .then(result => result.rows)
 }
+
+// function validateUser
 
 module.exports = {
   getAllUsers,

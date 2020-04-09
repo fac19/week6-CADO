@@ -2,7 +2,7 @@ const handlers = require("./handlers");
 const { parse } = require('cookie');
 const jwt = require('jsonwebtoken');
 const secret = 'survivethevirus'
-
+let jwtCookie;
 const signInTemplate = `<a href="/signin" class="sign-link">sign in</a> <a href="signup" class="sign-link">sign up</a>`;
 const signOutTemplate = `<a href="/signout" class="sign-link">sign out</a>`;
 const addPostButton = `<a class="new-page-link" href='/add'>Add a tool</a>`;
@@ -12,8 +12,13 @@ function router(request, response) {
   // Homepage
   if (url === "/" && method === "GET") {
 
-    let jwtCookie = parse(request.headers.cookie).token;
-
+    if (request.headers.cookie){
+      jwtCookie = parse(request.headers.cookie).token;
+    } 
+    else {
+      jwtCookie = false;
+    }
+    
     if (!jwtCookie) {
       handlers.homeHandler(request, response, signInTemplate,''); //with sign in and up
     }else {
