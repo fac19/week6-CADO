@@ -23,8 +23,6 @@ function createUser(username, password) {
     .then(user => {
       if (username === user[0].username) {
         return 'user exists'
-      } else {
-        return 'user doesnt exist!'
       }
     })
     .catch(() => {
@@ -36,7 +34,25 @@ function createUser(username, password) {
     })
 }
 
-module.exports = { getAllUsers, getUserName, getPassword, createUser }
+function getAllPostsAndUsernames() {
+  return db
+    .query(
+      `
+    SELECT posts.*, users.username 
+    FROM posts
+    INNER JOIN users ON posts.user_id = users.id
+    `,
+    )
+    .then(result => result.rows)
+}
+
+module.exports = {
+  getAllUsers,
+  getUserName,
+  getPassword,
+  createUser,
+  getAllPostsAndUsernames,
+}
 
 //  //   db.query('INSERT INTO users(username, password) VALUES($1, $2)', [
 //     `${username}`,
