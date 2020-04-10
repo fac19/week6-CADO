@@ -1,5 +1,17 @@
 const db = require('./database/connection')
 
+function checkUser(username) {
+  return db
+    .query('SELECT * FROM users WHERE username = ($1)', [`${username}`])
+    .then(result => {
+      if (result.rows.length > 0) {
+        return true // The user exists
+      } else {
+        return false // The user doesnt exist
+      }
+    })
+}
+
 function getAllUsers() {
   return db.query(`SELECT * FROM users`).then(result => result.rows)
 }
@@ -10,7 +22,6 @@ function getUser(username) {
     .then(result => result.rows) // Does this reject if no user exists
     .catch(error => {
       console.log('I AM THE GET USER ERROR')
-      return error
     })
 }
 
@@ -98,6 +109,7 @@ module.exports = {
   getTools,
   deletePost,
   createTool,
+  checkUser,
 }
 
 // function createUser(data) {
