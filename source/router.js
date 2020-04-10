@@ -43,8 +43,11 @@ function router(request, response) {
     // Add a tool page
   } else if (url === '/add' && method == 'GET') {
     handlers.addPageHandler(request, response)
-    //Submit tool data
-  } else if (url === '/create-tool' && method == 'POST') {
+  } else if (url.includes("/delete-tools")){
+    handlers.deleteHandler(request, response)
+  //Submit tool data
+}
+    else if (url === '/create-tool' && method == 'POST') {
     if (request.headers.cookie) {
       jwtCookie = parse(request.headers.cookie).token
     } else {
