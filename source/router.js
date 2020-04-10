@@ -43,7 +43,7 @@ function router(request, response) {
     // Add a tool page
   } else if (url === '/add' && method == 'GET') {
     handlers.addPageHandler(request, response)
-  } else if (url.includes("/delete-tools")){
+  } else if (url.includes("/delete-post")){
     handlers.deleteHandler(request, response)
   //Submit tool data
 }

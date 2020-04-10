@@ -160,7 +160,7 @@ function signupPostHandler(request, response) {
 }
 
 function deleteHandler(request, response) {
-  let id = parseInt(request.url(/\d+/)[0])
+  let id = parseInt(request.url.match(/\d+/)[0])
   console.log(id)
   model.deletePost(id, response)
 }
