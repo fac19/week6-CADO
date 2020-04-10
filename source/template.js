@@ -66,10 +66,9 @@ function printTools(tools, currentuser) {
       }
       return `
       <article id="tool_${tool.id}" class="tool-card"> 
-            <h2 class="tool-card__name">${tool.tool_name}</h2>
+            <h2 class="tool-card__name"><a href="https://www.${tool.tool_link}">${tool.tool_name}</a></h2>
             <p class="tool-card__user">Added by: ${tool.username}</p>
             <p class="tool-card__desc">What is it: ${tool.tool_description}</p>
-            <a class="tool-card__link" href="https://www.${tool.tool_link}">Link</a>
             <p class="tool-card__category">Category: ${tool.category}</p>
             ${deleteButton}
       </article>
