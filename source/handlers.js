@@ -142,7 +142,7 @@ function signupPostHandler(request, response) {
         if (result) {
           response.writeHead(500, { 'content-type': 'text/html' })
           response.end(
-            `<h1>You failed to sign up because user ${result} exists</h1>`,
+            `<h1>You failed to sign up because user ${data.username} exists</h1>`,
           )
         } else {
           bcrypt
