@@ -18,7 +18,6 @@ function htmlSkeleton(redirect, content) {
         <main>
           ${content}
         </main>
-        <script src="public/main.js"></script>
     </body>
     </html>
     `
