@@ -10,7 +10,6 @@ function htmlSkeleton(redirect, content) {
         <title>Survive the virus</title>
         <link rel='shortcut icon' href='https://ps.w.org/covid-19/assets/icon.svg?rev=2262770' type='image/x-icon'> 
         <link href="https://fonts.googleapis.com/css?family=Lato|Open+Sans&display=swap" rel="stylesheet">
-        <script src="https://kit.fontawesome.com/743c019083.js" crossorigin="anonymous"></script>
         <link href="public/styles.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     </head>
@@ -85,11 +84,11 @@ function home(tools, links, button, username) {
     `${links}
     <p class="home-filter-description">Select a category to filter the results:</p>
     <div id="categoryIcon" class="cat">
-      <a class="cat__work-icon"><i class="fas fa-briefcase"></i></a>
-      <a class="cat__social-icon"><i class="fas fa-people-arrows"></i></a>
-      <a class="cat__ent-icon"><i class="fas fa-photo-video"></i></a>
-      <a class="cat__health-icon"><i class="fas fa-heartbeat"></i></a>
-      <a class="cat__news-icon"><i class="far fa-newspaper"></i></a>
+      <a class="cat__filter">Work</a>
+      <a class="cat__filter">Social</i></a>
+      <a class="cat__filter">Entertainment</i></a>
+      <a class="cat__filter">Health</i></a>
+      <a class="cat__filter">News</i></a>
     </div>
     ${printTools(tools, username)}`,
   )
