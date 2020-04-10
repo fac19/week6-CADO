@@ -3,7 +3,6 @@ const path = require('path')
 const model = require('./model')
 const templates = require('./template')
 const bcrypt = require('bcryptjs')
-const cookie = require('cookie')
 const jwt = require('jsonwebtoken')
 let token
 
