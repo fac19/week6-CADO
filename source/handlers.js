@@ -152,15 +152,13 @@ function signupPostHandler(request, response) {
               model.createUser({ username: data.username, password: hash }),
             )
             .then(() => {
-              getUser(data.username).then(user => {
-                const payload = { user_id: user.id }
-                token = jwt.sign(payload, 'survivethevirus')
-                response.writeHead(302, {
-                  location: '/',
-                  'Set-Cookie': `token=${token}; HttpOnly; Max-Age=9000`,
-                })
-                response.end()
+              const payload = { username: data.username }
+              token = jwt.sign(payload, 'survivethevirus')
+              response.writeHead(302, {
+                location: '/',
+                'Set-Cookie': `token=${token}; HttpOnly; Max-Age=9000`,
               })
+              response.end()
             })
             .catch(error => {
               console.log(error)
