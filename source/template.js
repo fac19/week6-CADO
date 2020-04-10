@@ -106,19 +106,19 @@ function addPage() {
     `<form action="create-tool" method="POST">
         <fieldset>
           <legend>Category:</legend>
-          <label class="radio-label" for="work"><i class="fas fa-briefcase"></i>
+          <label class="radio-label" for="work">Work
           <input type="radio" id="work" name="category" value="Work" required>
           </label>
-          <label class="radio-label" for="social"><i class="fas fa-people-arrows"></i>
+          <label class="radio-label" for="social">Social
           <input type="radio" id="social" name="category" value="Social" required>
           </label>
-          <label class="radio-label" for="entertainment"><i class="fas fa-photo-video"></i>
+          <label class="radio-label" for="entertainment">Entertainment
           <input type="radio" id="entertainment" name="category" value="Entertainment" required>
           </label>
-          <label class="radio-label" for="health"><i class="fas fa-heartbeat"></i>
+          <label class="radio-label" for="health">Health
           <input type="radio" id="health" name="category" value="Health" required>
           </label>
-          <label class="radio-label" for="news"><i class="far fa-newspaper"></i>
+          <label class="radio-label" for="news">News
           <input type="radio" id="news" name="category" value="News" required>
           </label>
         </fieldset>
