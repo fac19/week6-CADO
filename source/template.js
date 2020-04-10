@@ -9,7 +9,6 @@ function htmlSkeleton(redirect, content) {
         <title>Survive the virus</title>
         <link rel='shortcut icon' href='https://ps.w.org/covid-19/assets/icon.svg?rev=2262770' type='image/x-icon'> 
         <link href="https://fonts.googleapis.com/css?family=Lato|Open+Sans&display=swap" rel="stylesheet">
-        <script src="https://kit.fontawesome.com/743c019083.js" crossorigin="anonymous"></script>
         <link href="public/styles.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     </head>
@@ -58,10 +57,9 @@ function printTools(tools, currentuser) {
       }
       return `
       <article id="tool_${tool.id}" class="tool-card"> 
-            <h2 class="tool-card__name">${tool.tool_name}</h2>
+            <h2 class="tool-card__name"><a href="https://www.${tool.tool_link}">${tool.tool_name}</a></h2>
             <p class="tool-card__user">Added by: ${tool.username}</p>
             <p class="tool-card__desc">What is it: ${tool.tool_description}</p>
-            <a class="tool-card__link" href="https://www.${tool.tool_link}">Link</a>
             <p class="tool-card__category">Category: ${tool.category}</p>
             ${deleteButton}
       </article>
@@ -80,11 +78,11 @@ function home(tools, links, button, username) {
     `${links}
     <p class="home-filter-description">Select a category to filter the results:</p>
     <div id="categoryIcon" class="cat">
-      <a class="cat__work-icon"><i class="fas fa-briefcase"></i></a>
-      <a class="cat__social-icon"><i class="fas fa-people-arrows"></i></a>
-      <a class="cat__ent-icon"><i class="fas fa-photo-video"></i></a>
-      <a class="cat__health-icon"><i class="fas fa-heartbeat"></i></a>
-      <a class="cat__news-icon"><i class="far fa-newspaper"></i></a>
+      <a class="cat__filter">Work</a>
+      <a class="cat__filter">Social</i></a>
+      <a class="cat__filter">Entertainment</i></a>
+      <a class="cat__filter">Health</i></a>
+      <a class="cat__filter">News</i></a>
     </div>
     ${printTools(tools, username)}`,
   )
@@ -98,19 +96,19 @@ function addPage() {
     `<form action="create-tool" method="POST">
         <fieldset>
           <legend>Category:</legend>
-          <label class="radio-label" for="work"><i class="fas fa-briefcase"></i>
+          <label class="radio-label" for="work">Work
           <input type="radio" id="work" name="category" value="Work" required>
           </label>
-          <label class="radio-label" for="social"><i class="fas fa-people-arrows"></i>
+          <label class="radio-label" for="social">Social
           <input type="radio" id="social" name="category" value="Social" required>
           </label>
-          <label class="radio-label" for="entertainment"><i class="fas fa-photo-video"></i>
+          <label class="radio-label" for="entertainment">Entertainment
           <input type="radio" id="entertainment" name="category" value="Entertainment" required>
           </label>
-          <label class="radio-label" for="health"><i class="fas fa-heartbeat"></i>
+          <label class="radio-label" for="health">Health
           <input type="radio" id="health" name="category" value="Health" required>
           </label>
-          <label class="radio-label" for="news"><i class="far fa-newspaper"></i>
+          <label class="radio-label" for="news">News
           <input type="radio" id="news" name="category" value="News" required>
           </label>
         </fieldset>

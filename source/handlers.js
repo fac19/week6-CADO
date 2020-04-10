@@ -173,10 +173,11 @@ function signupPostHandler(request, response) {
   })
 }
 
-// function loveHandler(request, response) {
-//   //UPDATE love of card in table
-// }
-
+function deleteHandler(request, response) {
+  let id = parseInt(request.url.match(/\d+/)[0])
+  console.log(id)
+  model.deletePost(id, response)
+}
 function missingHandler(request, response) {
   response.writeHead(404, { 'content-type': 'text/html' })
   const missingHtml = templates.missing()
@@ -194,4 +195,5 @@ module.exports = {
   signinPostHandler,
   signupPostHandler,
   signupPageHandler,
+  deleteHandler
 }

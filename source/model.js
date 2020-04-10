@@ -37,18 +37,20 @@ function createUser(data) {
   return getUser(data.username).then(userArray => {
     if (userArray.length == 0) {
       return db.query('INSERT INTO users(username, password) VALUES($1, $2)', [
-        `${data.username}`,
-        `${data.password}`,
+        data.username,
+        data.password,
       ])
     }
-    // else {
-    //   return
-    // }
   })
 }
 
-function deletePost(postId) {
+function deletePost(postId, response ) {
   return db.query('DELETE FROM posts WHERE posts.id = ($1)', [postId])
+  .then(() => {
+    response.writeHead(302, {"location": "/"});
+    response.end();
+  })
+  .catch(console.log);
 }
 
 function getAllPostsAndUsernames() {

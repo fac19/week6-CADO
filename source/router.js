@@ -3,8 +3,8 @@ const { parse } = require('cookie')
 const jwt = require('jsonwebtoken')
 const secret = 'survivethevirus'
 let jwtCookie
-const signInTemplate = `<a href="/signin" class="sign-link">sign in</a> <a href="signup" class="sign-link">sign up</a>`
-const signOutTemplate = `<a href="/signout" class="sign-link">sign out</a>`
+const signInTemplate = `<div class="sign-link"><a href="/signin">sign in</a><span>/</span><a href="signup">sign up</a></div>`
+const signOutTemplate = `<div class="sign-link"><a href="/signout">sign out</a></div>`
 const addPostButton = `<a class="new-page-link" href='/add'>Add a tool</a>`
 
 function router(request, response) {
@@ -43,8 +43,11 @@ function router(request, response) {
     // Add a tool page
   } else if (url === '/add' && method == 'GET') {
     handlers.addPageHandler(request, response)
-    //Submit tool data
-  } else if (url === '/create-tool' && method == 'POST') {
+  } else if (url.includes("/delete-post")){
+    handlers.deleteHandler(request, response)
+  //Submit tool data
+}
+    else if (url === '/create-tool' && method == 'POST') {
     if (request.headers.cookie) {
       jwtCookie = parse(request.headers.cookie).token
     } else {
