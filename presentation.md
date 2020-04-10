@@ -1,5 +1,5 @@
 # SVR|VRS 2: Return of COVID Tools
-![](https://media.giphy.com/media/gzkUBdP1zNRCM/giphy.gif =400x)
+![](https://media.giphy.com/media/gzkUBdP1zNRCM/giphy.gif)
 
 ---
 
@@ -11,13 +11,13 @@
 
 ## Demo 
 
-![show me](https://media3.giphy.com/media/82Sk9h66RfOSCyZ0r4/200.gif?cid=e1bb72ff8411aeceb46101bd713ce2a97e377fd84efaf2be&rid=200.gif =400x)
+![show me](https://media3.giphy.com/media/82Sk9h66RfOSCyZ0r4/200.gif?cid=e1bb72ff8411aeceb46101bd713ce2a97e377fd84efaf2be&rid=200.gif)
 
 ---
 
 ### Planning
 
-![](https://i.imgur.com/I9oBS1G.png =650x600)
+![](https://i.imgur.com/I9oBS1G.png)
 
 ---
 
