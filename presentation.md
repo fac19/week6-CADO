@@ -1,346 +1,209 @@
-# Week 5 Project: SRV|VRS
-
-![](https://ps.w.org/covid-19/assets/icon.svg?rev=2262770)
-
----
-
-![](https://i.imgur.com/8f1AX3H.png)
+# SVR|VRS 2: Return of COVID Tools
+![](https://media.giphy.com/media/gzkUBdP1zNRCM/giphy.gif =400x)
 
 ---
 
-## __*DEMO THE WEBSITE*__
-https://srv-vrs.herokuapp.com/
+### A web app, hosted on heroku
+
+- A user can view all post on the survival tools but cant create a post or delete. Once signed in they then have access to add posts and delete their posts they've created.
 
 ---
 
-## Project Description
+## Demo 
 
-##### List of resources/tools for surviving self-isolation
-
----
-
-## Planning, Using Miro *
-
-![](https://media.giphy.com/media/Dps6uX4XPOKeA/giphy.gif)
-*Commission for Jack secured
-
-https://miro.com/app/board/o9J_kuF5bdE=/
+![show me](https://media3.giphy.com/media/82Sk9h66RfOSCyZ0r4/200.gif?cid=e1bb72ff8411aeceb46101bd713ce2a97e377fd84efaf2be&rid=200.gif =400x)
 
 ---
 
-![](https://i.imgur.com/uaCWuPE.png)
+### Planning
+
+![](https://i.imgur.com/I9oBS1G.png =650x600)
 
 ---
 
-![](https://i.imgur.com/x0ugMgk.png)
+![](https://i.imgur.com/vgpKo1g.png)
 
 ---
 
-![](https://i.imgur.com/NDmnGul.png)
+## schema structure 
+
+![](https://i.imgur.com/IZuxO5D.png)
 
 ---
 
-![](https://i.imgur.com/TcrXtgO.png)
+### Safety first
+![](https://media.giphy.com/media/U8GCzn3SWJkziaugx2/giphy.gif)
 
 ---
 
-## Estimation
-**E1** - First gym with starter pokemon
-**E2** - Second gym with super effective pokemon against the gym types
-**E3** - Third gym with strong pokemon against unknown gym types
-**E5** - ELITE FOUR with magikarp
+- Passwords
+- Tokens and payloads
+- Form validation
 
 ---
 
-![](https://i.imgur.com/nSiNRKR.png)
+### Deploying a DB on Heroku
+- If you haven't pushed changes to the GitHub repo: Manual Deploy!
+- Debugging!
+- You can connect to remote DB using CLI to `\ include` tables
 
----
-
-## Database Schema
-
-```sql
-CREATE TABLE users (
-  id SERIAL PRIMARY KEY,
-  category TEXT NOT NULL,
-  tool_name VARCHAR(50),
-  tool_description VARCHAR(280),
-  tool_link VARCHAR(75),
-  added_by VARCHAR(50)
-  love INTEGER 
-);
-```
-
----
-
-## Database
-- One big table
-- No relations, we could have split the categories and users up
-
----
-
-## Struggles 🥊
-![](https://media.giphy.com/media/wZHzd1ZL3oENO/giphy.gif)
-
----
-
-### The f&%^ing filter 
-
-![](https://i.imgur.com/6C3Nw0Y.png)
-
----
-
-![](https://i.imgur.com/CijnFaP.png)
+`psql \c <HEROKU URL>`
 
 
 ---
 
-```javascript
-filter = 'News';
-    newHtml = await fetch ("/", {
-        method: "POST",
-        headers: {"Content-Type": "application/javascript"},
-        body: filter,
-    });
-    document.open('text/html');
-    document.write(`${await newHtml.text()}`);
-    document.close();
-```
-
----
-
-### Callbacks with arguments
-
-```javascript
-fetch(
-    //do an asynchronous thing
-)
-.then(getTool) //run getTool() when fetch complete 
-```
-
----
-
-
-```javascript
-fetch(
-    //do an asynchronous thing
-)
-.then(() => {
-    getTool(arguments) //run getTool() with arguments 
-}) 
-```
-
----
-
-### Testing queries
-- We wrote our tests in a way that passed sometimes when run 😊 and then failed when run again 🙁
-- Always run your test twice to check for this!
-
-![](https://media.giphy.com/media/110dhxfJebYOTm/giphy.gif)
-
----
-
-### VSCode LiveShare bug 🐞🙀
-
-![](https://i.imgur.com/FXhFXKd.png)
-
-...we got this very creepy message when our live sharing code wasn't syncing up properly...
-
----
-
-### NPM ERROR: Digest Method Not Supported
-
-![](https://media.giphy.com/media/Oe4V14aLzv7JC/giphy.gif)
-
-When this happens...delete `package-lock.json` and `node_modules` and `npm install` again
-
----
-
-### EADDRINUSE: address already in use :::3000 💀
-
-![](https://media.giphy.com/media/tei52cyY5mroA/giphy.gif)
-
-```
-sudo lsof -i :3000
-kill -9 PID VALUE
-```
-
-##### Thanks Ayub! :+1: 
-
----
-
-### Styling Radio! 📻  (in the last 5 mins) 😬
-
-![](https://i.imgur.com/Dn2EPx9.png)
-
----
-
-## Successes 👍
-![](https://media.giphy.com/media/a0h7sAqON67nO/giphy.gif)
-
----
-
-## TDD for server queries
-![](https://media.giphy.com/media/fvA1ieS8rEV8Y/giphy.gif)
-
----
-
-```javascript
-test("Can get filtered user entries with getTools() function (id)", t => {
-  build().then(() => {
-    getTools(`News`)
-      .then(entries => {
-        const firstEntry = entries[0];
-        t.equal(firstEntry.id, 4);
-        t.end();
-      })
-      .catch(error => {
-        t.error(error);
-        t.end();
-      })
-  });
-});
-```
-
----
-
-![](https://i.imgur.com/v3ZtdkI.png)
-
----
-
-## Linking handlers to model
-
-![](https://media.giphy.com/media/kxFoogJYza7Kw/giphy.gif)
-
-- Just general understanding of the flow 🌊
-
----
-
-## Somehow deploying on heroku...
-
-![](https://media.giphy.com/media/H6JdkRnhXQaImiCYp2/giphy.gif)
+### Displaying the join table on our home page 
+Combining WHERE and ORDER BY in a join table to get most recent posts
 
 ```javascript=
-connection.js file 
-
-dotenv.config();
-
-const db = new pg.Pool({
-    connectionString: process.env.DATABASE_URL,
-    // if we have a database URL (e.g. from Heroku we'll use that, otherwise it'll default to your local .env variables
-});
-
-module.exports = db;
+return db
+    .query(
+      `SELECT posts.*, users.username 
+       FROM posts
+       INNER JOIN users ON posts.user_id = users.id
+       WHERE posts.user_id = ($1)
+       ORDER BY posts.id DESC`, [userId]
+    )
 ```
 
 ---
 
-## Questions 
+### Re-using similar templates
 
-![](https://media.giphy.com/media/DRfu7BT8ZK1uo/giphy.gif)
+![](https://i.imgur.com/0LOp2cZ.png)
 
+---
+
+![](https://i.imgur.com/m1pWlrF.png)
+
+---
+
+```javascript=
+function home(tools, links, button, username) {
+  return htmlSkeleton(
+    // Redirect Parameter
+    `<h2 ...>A collection of ..</h2>
+    ${button}`,
+    
+    // Content Parameter
+    `${links}
+    <p ...>Select a category...:</p>
+    <div ...>
+      ...
+    </div>
+    ${printTools(tools, username)}`,
+  )
+}
+```
+
+---
+
+### What we learned?
+- Promises are cool and dangerous. 
+- Estimated time is always less than actual time.
+- Working on someone else code might be hard.
+- Documentation habbits.
+
+---
+
+### What we should improve?
+- Form verification 
+- Filter
+
+---
+
+## Was challenging / Personal takeaways
+![challenging](https://media.giphy.com/media/ehTMCiPzFTiak/giphy.gif)
+
+---
+
+### Ako
 
 --- 
 
-# Team SRVVRS SGC
-
-## STOP
-- Enabling Oli to steal our passwords
-
-
-## GO
-- Mind map of file architecture (Miro?)
-- Maybe having set in breaks?
-- Also reminding each other to drink water and not look at the screen 20/20/20
-- Fixing Oli being able to hack us
-- Bring this joyful energy into future teams (stay resilient)
-- Maybe 3min-ish group movement 
-- User manual feedback
-
-
-## CONTINUE
-- Pokemon analogies
-- Being total angels
-- Being honest to each other :+1:
-- Being flexible (honesty is key!)
-- Asking each other questions 
-- Being a fantastic scrum master
-- Listening to each other
-- Reluctantly learning Oli's best practice
-- More GIFs, pics and demo time than writing on slides
-- Laughing/joking!! :100: 
-- Relaxed environment but still productive
+#### router.js "/create-tool" route
+![](https://i.imgur.com/8l1ij9T.png)
 
 ---
 
-# Minutes
-## Stop
-### Enabling Oli to steal our passwords
-J: Remember what Oli has taught us
+#### handler.js addToolHandler() 
+![](https://i.imgur.com/823quJl.png)
 
-## Go
-###  Mind map of file architecture (Miro?)
-J: Help to visualise how it all fits together
+---
 
-### Maybe having set in breaks?
-K: hands away from keyboards, chat about not FAC stuff, built in breaks - 5 min every hour? Could include with CoC chat.
-H: Nice to make sure we're also allowing people to get a break if they're nervous about asking for one
+#### model.js creaTool()
+![](https://i.imgur.com/Gm92mtW.png)
 
-### Also reminding each other to drink water and not look at the screen: 20/20/20
-J: Being there for each other's health
+---
 
-### Fixing Oli being able to hack us
-H: Let's fix the template literal
-C: This should be quite simple
-H: Can do this at 6.30
+### James (SM)
 
-### Bring this joyful energy into future teams (stay resilient)
-J: Let's bring this joy with us into new team
+- Spending time planning and making sure everything was clear
+- understanding the priorities at different stages in the project 
+- Not mobbing when working on problems
+- Finally understand promises and chaining them to get what we want
 
-### Maybe 3min-ish group movement
-K: Japanese video at start to move / exercise together, random stretches. Uncomfortable at first but nice.
-H: has noticed K is great at standing and moving, let's be inspired
+---
 
-### User manual feedback
-H: Writing honest but constructive comments on each other's user manuals
-K: Would be super interesting & valuable to get feedback in this way
-H: I wouldn't criticise anyone in the user manual but can be helpful for more feedback
-J: Inspired by this, love it
-H: It was my idea because I'm so clever
+### User exists database Query
 
-## Continue
-### Pokemon analogies
-H: Love Pokemon
+![](https://media.giphy.com/media/l1AvALOphoaWbxeRa/giphy.gif)
 
-### Being total angels
-H: Cheesy. No one hung onto their ideas except Jack and document.write()
-J: I really wanted to use the banned thing
+---
 
-### Being honest to each other :+1:
-K: We were really open and that's nice
+- checkUser helper function queries the database 
+```JavaScript
+checkUser(data.username) //Returns true / false from a DB query
+      .then(result => {
+        if (result) {
+        // CREATE ERROR
+        } else {
+        // DO THE BCRYPT AND CREATE USER 
+```
 
-### Being flexible (honesty is key!)
-J: Cheese
-C: If I have to give one more ultimatum I'm going to bed
 
-### Asking each other questions
-K: Always happy to ask questions 
+---
 
-### Being a fantastic scrum master
-J: Han great and inspirational scrum master
+### Verifying the token and displaying content
 
-### Listening to each other
-K: This was great
+![](https://media.giphy.com/media/G4qAZYIFr1Cww/giphy.gif)
 
-### Excitedly learning Oli's best practice
-J: Let's keep learning from Oli
+---
 
-### More GIFs, pics and demo time than writing on slides
-J: Makes for more engaging presentation
+### Joe
+- You can use if/else statements within a db query
+- Make sure you know what you're returning from your db queries (you can return what you want!)
+- If you don't know what you're returning. Hard to handle it!
 
-### Laughing/joking!! :100: 
-K: Mum is concerned I'm laughing so much. Great vibes.
+---
 
-### Relaxed environment but still productive
-K: Most relaxed and able to work, great balance
-J: Planning really helped! It's reassuring to know it's possible to have fun and make a great project
-H: I hate everyone
+```javascript=
+function signinPostHandler(request, response) {
+    model.checkUser(data.username) // I am a helper function!
+      .then(BOOLEAN => {
+        if (BOOLEAN) {
+          'do something'          
+        } else {
+          'do something else'
+        }
+      })
+  })
+}
+```
+
+---
+
+- Kill your darlings 
+
+![](https://media2.giphy.com/media/QHYHhShm1sjVS/200.gif?cid=e1bb72ffe9fb90a071b438fab9128f059352a1bbfb6178ec&rid=200.gif)
+
+---
+
+### Jack
+- Deploying on Heroku
+- Using payload in our code
+- Delete/filter in ``<a>`` href
+
+---
+
+![beers](https://media.giphy.com/media/JRsY1oIVA7IetTkKVO/giphy.gif)
