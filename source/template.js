@@ -1,5 +1,3 @@
-const model = require('./model')
-const handlers = require('./handlers')
 
 function htmlSkeleton(redirect, content) {
   return `
