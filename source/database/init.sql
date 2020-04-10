@@ -17,18 +17,4 @@ CREATE TABLE posts(
   tool_link VARCHAR(255)
 );
 
-INSERT INTO users (username, password) VALUES
-('jimmyface123', 'password'),
-('tomkitten', '123456'),
-('assasinscreed', 'qwerty'),
-('newUser', 'password123') 
-;
-
-INSERT INTO posts (user_id, category, tool_name, tool_description, tool_link) VALUES
-('1', '4', 'Netflix', 'Stream shows and movies', 'netflix.com' ),
-('4', '1', 'Amazon', 'Buy stuff you dont need', 'amazonprime.com'),
-('3', '2', 'Pact Coffee', 'Get overpriced coffee', 'pactcoffee.com'),
-('2', '3', 'Toilet Roll Checker', 'Check if you can survive isolation with your current supply', 'toiletrollchecker.com')
-;
-
 COMMIT;
