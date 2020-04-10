@@ -74,6 +74,21 @@ body {
   color: var(--logo-colour);
 }
 
+.cat__filter {
+  font-size: 1.25rem;
+  font-weight:500;
+}
+
+.cat__filter:hover {
+  font-weight:700;
+}
+
+.sign-link {
+  position:absolute;
+  top:1rem;
+  right:2rem;
+}
+
 .tool-card {
   width: 70vw;
   margin: 1rem;
