@@ -33,7 +33,7 @@ function signinPage(extra, action) {
         <input class="username__input" id="username" name="username" required>
 
         <label class="user-form__label" for="password">Password<span aria-hidden=true>*</span></label>
-        <input type="password" class="user-form__input" id="password" name="password" required>
+        <input type="password" class="user-form__input" id="password" name="password" minlength="8" required>
        ${extra}
        <button class="user-form__submit-btn" type="submit">${action}</button>
      </form>`,
@@ -41,12 +41,7 @@ function signinPage(extra, action) {
 }
 
 function signupPage() {
-  return signinPage(
-    `<label class='user-form__label' for="repeat-password">Repeat your Password <span aria-hidden="true">*</span></label>
-      <input type="password" class="user-form__input" id="repeat-password" name="repeat-password" required>
-        `,
-    'signup',
-  )
+  return signinPage(``, 'signup')
 }
 
 function printTools(tools, currentuser) {

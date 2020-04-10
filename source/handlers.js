@@ -135,25 +135,42 @@ function signupPostHandler(request, response) {
     const searchParams = new URLSearchParams(body)
     const data = Object.fromEntries(searchParams)
     console.log(data)
-    bcrypt
-      .genSalt(10)
-      .then(salt => bcrypt.hash(data.password, salt))
-      .then(hash =>
-        model.createUser({ username: data.username, password: hash }),
-      )
-      .then(() => {
-        const payload = { username: data.username }
-        token = jwt.sign(payload, 'survivethevirus')
-        response.writeHead(302, {
-          location: '/',
-          'Set-Cookie': `token=${token}; HttpOnly; Max-Age=9000`,
-        })
-        response.end()
+    model
+      .checkUser(data.username)
+      .then(result => {
+        console.log('signupPostHandler -> result', result)
+        if (result) {
+          response.writeHead(500, { 'content-type': 'text/html' })
+          response.end(
+            `<h1>You failed to sign up because user ${result} exists</h1>`,
+          )
+        } else {
+          bcrypt
+            .genSalt(10)
+            .then(salt => bcrypt.hash(data.password, salt))
+            .then(hash =>
+              model.createUser({ username: data.username, password: hash }),
+            )
+            .then(() => {
+              getUser(data.username).then(user => {
+                const payload = { user_id: user.id }
+                token = jwt.sign(payload, 'survivethevirus')
+                response.writeHead(302, {
+                  location: '/',
+                  'Set-Cookie': `token=${token}; HttpOnly; Max-Age=9000`,
+                })
+                response.end()
+              })
+            })
+            .catch(error => {
+              console.log(error)
+              response.writeHead(500, { 'content-type': 'text/html' })
+              response.end(`<h1>You failed to sign up</h1>`)
+            })
+        }
       })
-      .catch(error => {
-        console.log(error)
-        response.writeHead(500, { 'content-type': 'text/html' })
-        response.end(`<h1>You failed to sign up</h1>`)
+      .catch(err => {
+        console.log(err)
       })
   })
 }

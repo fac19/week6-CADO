@@ -30,7 +30,7 @@ function router(request, response) {
             response,
             signOutTemplate,
             addPostButton,
-            decoded.username,
+            decoded.user_id,
           ) //with sign out and add post
         }
       })
