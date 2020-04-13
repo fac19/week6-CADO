@@ -207,3 +207,87 @@ function signinPostHandler(request, response) {
 ---
 
 ![beers](https://media.giphy.com/media/JRsY1oIVA7IetTkKVO/giphy.gif)
+
+---
+
+# SGC
+
+## Stop 
+- Copy and paste
+- Mobbing too long (soft stop)
+
+## Go 
+- Killing those darlings ruthlessly :knife: 
+- Group effort for readme
+- User flow first
+
+## Continue
+
+- Being chill af
+- Explaining code to the other pairs
+- Tactical mobbing
+- Excellent tag game
+- Planning :+1:
+- Being flexible
+- Reflective SGCs & thoughtful stand ups
+- Self-learning mindfully
+
+# Minutes
+## Stop
+### Copy and paste
+Joe: would be helpful to learn from rewriting
+Ako: but also convenient to save time
+
+### Mobbing too long (soft stop)
+Jack: Let's not overmob
+James: Good to be aware of our time and leave when we need to
+Ako: There is some previous teamwork that influences this
+Jack: it's no problem to mob
+All: agree that there is value in mobbing
+
+
+## Go
+### Killing those darlings ruthlessly :knife: 
+Joe: we can overcommit to certain rabbit holes. More important the code youe delete than the code you write
+
+### Group effort for readme
+James: Share the workload on README, prioritise this
+Ako: Helpful please to record steps in complicated things that we've learned, e.g. setting up dev environment
+Jack: A small research spike
+
+### User flow first
+Joe: Start high level then zone in
+James: liked the visualisation of the project goal through client, server and database
+Jack: Loved the flow
+Ako: loved miro. what about specific roles next week? e.g. 4 roles from project teams
+James: Might be short on time with pairs and a day and a half
+Ako: we can experiment with roles. on Wednesday we could act as our 4 roles before lunch time and then do the coding part thereafter
+
+## Continue
+### Being chill af
+Jack: let's keep it up
+James: no dramas, accepting others' approaches
+
+### Asking about each others' code
+James: helped to check in and learn from each other
+Joe: grea to get ownership of it, never too overwhelmed
+
+### Tactical mobbing
+Joe: although it was a stop, good to recognise when to go into pairs
+
+### Strong tag game
+Joe: great to see a colourful project board, super helpful
+
+### Planning
+James: sets a great start for the week
+
+### Being flexible
+Jack: really helpful 
+
+### Reflective SGCs
+Jack: 
+
+### Self-learning mindfully
+Jack: Let's make sure we're working
+Ako: If we all agree to lone work then great!
+James: Bring the work to the group beforehand
